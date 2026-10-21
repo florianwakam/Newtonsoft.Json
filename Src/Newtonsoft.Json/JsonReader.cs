@@ -789,7 +789,9 @@ namespace Newtonsoft.Json
                     {
                         try
                         {
-                            d = Convert.ToDecimal(v, CultureInfo.InvariantCulture);
+                            d = v is double doubleValue
+                                ? decimal.Parse(doubleValue.ToString("G15", CultureInfo.InvariantCulture), NumberStyles.Float, CultureInfo.InvariantCulture)
+                                : Convert.ToDecimal(v, CultureInfo.InvariantCulture);
                         }
                         catch (Exception ex)
                         {
